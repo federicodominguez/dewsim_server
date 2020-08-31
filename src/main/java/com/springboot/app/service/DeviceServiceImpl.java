@@ -64,26 +64,22 @@ public class DeviceServiceImpl implements IDeviceService {
 		List<Object> attrValues = new ArrayList<Object>();
 		
 		attrNames.add("model");
-		attrNames.add("ip");
-		attrNames.add("battery_level");
 		attrNames.add("battery_status");
 		attrTypes.add("string");
 		attrTypes.add("string");
-		attrTypes.add("int");
-		attrTypes.add("string");
 		attrValues.add(d.getModel());
-		attrValues.add(d.getIp());
-		attrValues.add(d.getBattery_level());
 		attrValues.add(d.getBattery_status());
 		
-		if(d.getImages() != null && !d.getImages().isEmpty()) {
-			attrNames.add("images");
+		if(d.getDev_front() != null && !d.getDev_front().isEmpty()) {
+			attrNames.add("dev_front");
 			attrTypes.add("string");
-			attrValues.add(d.getImages());
+			attrValues.add(d.getDev_front());
 		}
 		
 		res.setName(d.getName());
 		res.setDesc(d.getDesc());
+		res.setIp(d.getIp());
+		res.setBattery_level(d.getBattery_level());
 		res.setAttrNames(attrNames);
 		res.setAttrTypes(attrTypes);
 		res.setAttrValues(attrValues);
@@ -97,9 +93,9 @@ public class DeviceServiceImpl implements IDeviceService {
         try {
             path = saveImage(image);
             if(path != null) {
-                List<String> images = device.getImages();
+                List<String> images = device.getDev_front();
                 images.add(path);
-                device.setImages(images);
+                device.setDev_front(images);
                 this.deviceRepository.save(device);
                 return new Response(null, device, HttpStatus.CREATED);
             }

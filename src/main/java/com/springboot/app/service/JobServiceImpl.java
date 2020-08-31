@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.app.dto.JobSubmitterResponse;
 import com.springboot.app.dto.ResponseJobs;
 import com.springboot.app.entity.Job;
 import com.springboot.app.repository.IJobRepository;
@@ -52,7 +53,7 @@ public class JobServiceImpl implements IJobService{
 	}
 	
 	@Override
-	public Dictionary<String,Object> findAll() {
+	public JobSubmitterResponse findAll() {
 		List<Job> jobList = (List<Job>) jobRepository.findAll();
 		List<Job> queued = new ArrayList<Job>();
 		List<Job> running = new ArrayList<Job>();;
@@ -85,8 +86,12 @@ public class JobServiceImpl implements IJobService{
 		resJobs2.setRunning(running2);
 		resJobs2.setFinished(finished2);
 		d.put("device_id2",resJobs2);
+		
+		JobSubmitterResponse res = new JobSubmitterResponse();
+		res.setSuccess("true");
+		res.setMessage(d);
 
-		return d;
+		return res;
 	}
 	
 	@Autowired

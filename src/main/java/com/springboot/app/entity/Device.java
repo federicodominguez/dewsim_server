@@ -50,11 +50,11 @@ public class Device implements Serializable{
 		this.battery_status = battery_status;
 	}
 	
-	public List<String> getImages() {
-		return images;
+	public List<String> getDev_front() {
+		return dev_front;
 	}
-	public void setImages(List<String> images) {
-		this.images = images;
+	public void setDev_front(List<String> dev_front) {
+		this.dev_front = dev_front;
 	}
 
 	@Id
@@ -67,7 +67,7 @@ public class Device implements Serializable{
 	private String battery_status;
 	
 	@ElementCollection
-	private List<String> images;
+	private List<String> dev_front;
 
 	private static final long serialVersionUID = 1L;
 

@@ -1,7 +1,5 @@
 package com.springboot.app.controllers;
 
-import java.util.Dictionary;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.springboot.app.dto.JobSubmitterResponse;
 import com.springboot.app.service.IJobService;
 import com.springboot.app.util.Response;
 
@@ -26,15 +25,15 @@ import com.springboot.app.util.Response;
 public class JobController {
 	
 	
-	@GetMapping("/jobs")
-	public ResponseEntity<?>getJobsProgress(){
-		return new ResponseEntity<Dictionary<String,Object>>(jobService.findAll(),HttpStatus.OK);
+	@GetMapping("/job/{submitter}")
+	public ResponseEntity<?>getJobsProgress(@PathVariable String submitter){
+		return new ResponseEntity<JobSubmitterResponse>(jobService.findAll(),HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/job/{submitte}", method = RequestMethod.POST, produces = "application/json;", consumes = {"multipart/form-data"})
-	public @ResponseBody ResponseEntity<String> readJson(@PathVariable String submitte,
+	@RequestMapping(value = "/job/{submitter}", method = RequestMethod.POST, produces = "application/json;", consumes = {"multipart/form-data"})
+	public @ResponseBody ResponseEntity<String> readJson(@PathVariable String submitter,
 														 @RequestParam("newJobFile") MultipartFile newJobFile) {
-		Response response = this.jobService.readJson(submitte, newJobFile);
+		Response response = this.jobService.readJson(submitter, newJobFile);
 		return ResponseEntity.status(response.getCode())
 				.contentType(MediaType.APPLICATION_JSON)
 				.body(this.gson.toJson(response));

@@ -35,8 +35,24 @@ public class DeviceResponse {
 		this.attrValues = attrValues;
 	}
 	
+	public int getBattery_level() {
+		return battery_level;
+	}
+	public void setBattery_level(int battery_level) {
+		this.battery_level = battery_level;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
 	private String name;
 	private String desc;
+	private String ip;
+	private int battery_level;
 	private List<String> attrNames;
 	private List<String> attrTypes;
 	private List<Object> attrValues;
