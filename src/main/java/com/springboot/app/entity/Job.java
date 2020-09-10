@@ -8,7 +8,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="jobs")
-public class Job implements Serializable{
+public class Job implements Serializable {
+	
+	public Job () {}
+
+	public Job(String job_id, String task_id, String submission_time, String execution_start, String execution_finished,
+			String execution_status) {
+		this.job_id = job_id;
+		this.task_id = task_id;
+		this.submission_time = submission_time;
+		this.execution_start = execution_start;
+		this.execution_finished = execution_finished;
+		this.execution_status = execution_status;
+	}
 
 	public String getJob_id() {
 		return job_id;

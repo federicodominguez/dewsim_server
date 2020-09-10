@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.springboot.app.dto.JobSubmitterResponse;
+import com.springboot.app.entity.Job;
 import com.springboot.app.service.IJobService;
 import com.springboot.app.util.Response;
 
@@ -28,6 +31,12 @@ public class JobController {
 	@GetMapping("/job/{submitter}")
 	public ResponseEntity<?>getJobsProgress(@PathVariable String submitter){
 		return new ResponseEntity<JobSubmitterResponse>(jobService.findAll(),HttpStatus.OK);
+	}
+	
+	@PostMapping("/job/create")
+	public ResponseEntity<Job>addJob(@RequestBody Job job){
+		jobService.addJob(job);
+		return new ResponseEntity<Job>(job, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/job/{submitter}", method = RequestMethod.POST, produces = "application/json;", consumes = {"multipart/form-data"})

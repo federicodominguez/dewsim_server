@@ -48,8 +48,7 @@ public class JobServiceImpl implements IJobService{
 			}
 		}
 		
-		
-        return new Response(null, jobs, HttpStatus.CREATED);
+		return new Response(null, jobs, HttpStatus.CREATED);
 	}
 	
 	@Override
@@ -78,13 +77,13 @@ public class JobServiceImpl implements IJobService{
 		
 		ResponseJobs resJobs2 = new ResponseJobs();
 		
-		List<Job> queued2 = new ArrayList<Job>();
-		List<Job> running2 = new ArrayList<Job>();;
-		List<Job> finished2 = new ArrayList<Job>();
+//		List<Job> queued2 = new ArrayList<Job>();
+//		List<Job> running2 = new ArrayList<Job>();
+//		List<Job> finished2 = new ArrayList<Job>();
 
-		resJobs2.setQueued(queued2);
-		resJobs2.setRunning(running2);
-		resJobs2.setFinished(finished2);
+		resJobs2.setQueued(queued);
+		resJobs2.setRunning(running);
+		resJobs2.setFinished(finished);
 		d.put("device_id2",resJobs2);
 		
 		JobSubmitterResponse res = new JobSubmitterResponse();
@@ -94,7 +93,14 @@ public class JobServiceImpl implements IJobService{
 		return res;
 	}
 	
+
+	@Override
+	public Job addJob(Job job) {
+		return jobRepository.save(job);
+	}
+	
 	@Autowired
 	private IJobRepository jobRepository;
+
 	
 }
