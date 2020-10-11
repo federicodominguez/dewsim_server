@@ -1,9 +1,9 @@
 package com.springboot.app.service;
 
-import com.springboot.app.dto.DeviceResponse;
+import com.springboot.app.dto.ScheduleResponse;
 
 public interface IScheduleService {
 	
-	public DeviceResponse getSchedulers();
+	public ScheduleResponse getSchedulers();
 
 }

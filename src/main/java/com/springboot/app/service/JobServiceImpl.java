@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.app.dto.JobSubmitterResponse;
 import com.springboot.app.dto.ResponseJobs;
+import com.springboot.app.entity.Device;
 import com.springboot.app.entity.Job;
+import com.springboot.app.repository.IDeviceRepository;
 import com.springboot.app.repository.IJobRepository;
 import com.springboot.app.util.Response;
 
@@ -68,25 +70,20 @@ public class JobServiceImpl implements IJobService{
 				}
 			}
 		}
-		ResponseJobs resJobs = new ResponseJobs();
-		Dictionary<String, Object> d = new Hashtable<String, Object>();
-		resJobs.setQueued(queued);
-		resJobs.setRunning(running);
-		resJobs.setFinished(finished);
-		d.put("device_id1", resJobs);
-		
-		ResponseJobs resJobs2 = new ResponseJobs();
-		
-//		List<Job> queued2 = new ArrayList<Job>();
-//		List<Job> running2 = new ArrayList<Job>();
-//		List<Job> finished2 = new ArrayList<Job>();
-
-		resJobs2.setQueued(queued);
-		resJobs2.setRunning(running);
-		resJobs2.setFinished(finished);
-		d.put("device_id2",resJobs2);
 		
 		JobSubmitterResponse res = new JobSubmitterResponse();
+		ResponseJobs resJobs = new ResponseJobs();
+		Dictionary<String, Object> d = new Hashtable<String, Object>();
+		List<Device> devices = deviceRepository.findAll();
+		for(Device device: devices) {
+
+			resJobs.setQueued(queued);
+			resJobs.setRunning(running);
+			resJobs.setFinished(finished);
+			d.put(device.getName(), resJobs);			
+			
+		} 
+		
 		res.setSuccess("true");
 		res.setMessage(d);
 
@@ -100,7 +97,14 @@ public class JobServiceImpl implements IJobService{
 	}
 	
 	@Autowired
+	public JobServiceImpl (IJobRepository jobRepository, IDeviceRepository deviceRepository) {
+		this.jobRepository = jobRepository;
+		this.deviceRepository = deviceRepository;
+		
+	}
+	
 	private IJobRepository jobRepository;
+	private IDeviceRepository deviceRepository;
 
 	
 }
